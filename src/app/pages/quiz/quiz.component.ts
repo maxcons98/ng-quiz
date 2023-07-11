@@ -33,9 +33,13 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.fetchCategories();
     this.subscription = this.quizService.quizQuestions.subscribe((questions) => {
       this.quizQuestions = questions;
-      this.isLoading = false
+      if (questions.length) {
+        this.isLoading = false;
+      }
       if (questions?.length > 0 && questions.every((question) => !!question.selected_answer)) {
         this.showSubmitQuizBtn = true;
+      } else {
+        this.showSubmitQuizBtn = false;
       }
     });
 
