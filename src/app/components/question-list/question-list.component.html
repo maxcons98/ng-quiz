@@ -1,0 +1,32 @@
+<div>
+  <div *ngFor="let question of list" class="mt-4">
+    {{ question.question | unescape }}
+    <div *ngIf="!showResult" class="d-flex mt-2" style="column-gap: 20px">
+      <button
+        (click)="setSelectedAnswer(answer, question)"
+        *ngFor="let answer of question.random_answers"
+        class="btn"
+        [ngClass]="{
+          'btn-success': answer === question.selected_answer,
+          'btn-outline-success': answer !== question.selected_answer
+        }"
+      >
+        {{ answer | unescape }}
+      </button>
+    </div>
+    <div *ngIf="showResult" class="d-flex mt-2" style="column-gap: 20px">
+      <button
+        (click)="setSelectedAnswer(answer, question)"
+        *ngFor="let answer of question.random_answers"
+        class="btn"
+        disabled
+        [ngClass]="{
+          'btn-danger': answer === question.selected_answer && answer !==question.correct_answer,
+          'btn-success': answer===question.correct_answer
+        }"
+      >
+        {{ answer | unescape }}
+      </button>
+    </div>
+  </div>
+</div>

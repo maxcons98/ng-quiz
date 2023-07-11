@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <form
+        class="d-flex"
+        style="column-gap: 5px"
+        (ngSubmit)="formSubmit(form)"
+        #form="ngForm"
+      >
+        <div class="form-group">
+          <label for="categorySelect">Category</label>
+          <select
+            name="categorySelect"
+            id="categorySelect"
+            ngModel
+            class="form-control form-select"
+            [disabled]="isLoading"
+            required
+          >
+            <option value="" selected disabled hidden>Select a category</option>
+            <option
+              *ngFor="let category of categories"
+              value="{{ category.id }}"
+            >
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="difficultySelect">Difficulty</label>
+          <select
+            name="difficultySelect"
+            id="difficultySelect"
+            ngModel
+            class="form-control form-select"
+            required
+          >
+            <option value="" selected disabled hidden>Select difficulty</option>
+            <option
+              *ngFor="let difficulty of getDifficulties()"
+              value="{{ difficulty.value }}"
+            >
+              {{ difficulty.label }}
+            </option>
+          </select>
+        </div>
+        <div class="d-flex mt-auto">
+          <button
+            id="createBtn"
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="!form.valid || isLoading"
+          >
+            Create
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="quizQuestions.length > 0" class="row mt-3">
+    <app-question-list [list]="quizQuestions"></app-question-list>
+  </div>
+  <div *ngIf="showSubmitQuizBtn" class="mt-4 d-flex justify-content-center">
+  <button (click)="submitQuiz()" class="btn btn-primary">Submit</button>
+</div>
+</div>
+<div *ngIf="isLoading">
+  <app-spinner></app-spinner>
+</div>

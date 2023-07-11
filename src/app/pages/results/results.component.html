@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="clas-xs-12">
+      <h3>Results</h3>
+      <app-question-list
+        [list]="quizQuestions"
+        [showResult]="true"
+      ></app-question-list>
+      <app-score [score]="score" [max]="quizQuestions.length"></app-score>
+      <div class="d-flex justify-content-center mt-4">
+        <button (click)="handleNewQuiz()" class="btn btn-primary">
+          Create a new quiz
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
